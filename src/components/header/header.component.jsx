@@ -7,7 +7,7 @@ import {
   LogoContainer,
   OptionsContainer,
   OptionsLink
-} from "./heaader.styles";
+} from "./header.styles";
 
 import { auth } from "../../firebase/firebase.utils";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
@@ -25,7 +25,7 @@ const Header = ({ currentUser, hidden }) => (
       <OptionsLink to="/shop">SHOP</OptionsLink>
       <OptionsLink to="/contact">CONTACT</OptionsLink>
       {currentUser ? (
-        <OptionsLink as="div" onClick={() => auth.signOut()}>
+        <OptionsLink as="div" onClick={() => auth.signOut()} to="/">
           SIGN OUT
         </OptionsLink>
       ) : (
