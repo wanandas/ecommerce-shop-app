@@ -15,8 +15,16 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 
+import WithSpinner from "./components/with-spinner/with-spinner.component";
+
+const HomePageWithSpinner = WithSpinner(HomePage);
+
 class App extends React.Component {
   unsubscribeFromAuth = null;
+
+  state = {
+    loading: true
+  };
 
   componentDidMount() {
     const { setCurrentUser } = this.props;
@@ -34,6 +42,7 @@ class App extends React.Component {
       }
 
       setCurrentUser(userAuth);
+      this.setState({ loading: false });
     });
   }
 
@@ -42,11 +51,18 @@ class App extends React.Component {
   }
 
   render() {
+    const { loading } = this.state;
     return (
       <div>
         <Header />
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <HomePageWithSpinner isLoading={loading} {...props} />
+            )}
+          />
           <Route path="/shop" component={ShopPage} />
           <Route exact path="/checkout" component={CheckoutPage} />
           <Route
