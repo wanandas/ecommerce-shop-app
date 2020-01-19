@@ -7,8 +7,7 @@ import { signInSuccess, signInFailure } from "./user.actions";
 import {
   auth,
   googleProvider,
-  createUserProfileDocument,
-  signInWithGoogle
+  createUserProfileDocument
 } from "../../firebase/firebase.utils";
 
 export function* getSnapshotFromUserAuth(userAuth) {
@@ -31,7 +30,7 @@ export function* onGoogleSignIn() {
 }
 
 export function* onGoogleSignInStart() {
-  yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
+  yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, onGoogleSignIn);
 }
 
 export function* signInWithEmail({ payload: { email, password } }) {
