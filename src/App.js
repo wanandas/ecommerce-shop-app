@@ -15,17 +15,20 @@ import { selectCurrentUser } from "./redux/user/user.selectors";
 
 import WithSpinner from "./components/with-spinner/with-spinner.component";
 
+import { checkUserSession } from "./redux/user/user.actions";
+
 const HomePageWithSpinner = WithSpinner(HomePage);
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
 
   state = {
-    loading: true
+    loading: null
   };
 
   componentDidMount() {
-    this.setState({ loading: false });
+    const { checkUserSession } = this.props;
+    checkUserSession();
   }
 
   componentWillUnmount() {
@@ -68,4 +71,8 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
