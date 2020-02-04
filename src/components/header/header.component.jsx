@@ -24,7 +24,6 @@ const Header = ({ currentUser, hidden, signOutStart }) => (
     </LogoContainer>
     <OptionsContainer>
       <OptionsLink to="/shop">SHOP</OptionsLink>
-      <OptionsLink to="/contact">CONTACT</OptionsLink>
       {currentUser ? (
         <OptionsLink as="div" onClick={signOutStart} to="/">
           SIGN OUT
